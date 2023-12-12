@@ -1,1 +1,35 @@
-<h1>Hello, Rails!</h1>
+<h1>Items</h1>
+<ul>
+    <% @items.each do |item| %>
+    <li>
+        <%= link_to item.name, item %>
+    </li>
+    <%end%>
+</ul>
+
+<h1>Recyle Bin</h1>
+<ul>
+    <% @recycleBin.each do |item| %>
+    <li>
+        <%= link_to item.name, item %>
+        |Deleted at :<%= item.deleted_at %>
+    </li>
+    <%end%>
+</ul>
+
+<h1>All Items</h1>
+<ul>
+    <% @allItems.each do |item| %>
+    <li>
+        <%= link_to item.name, item %>
+            <% if item.deleted_at %>
+                |Deleted at :<%= item.deleted_at %>
+            <% end %>
+    </li>
+    <%end%>
+</ul>
+
+<%= link_to "Add New Item", new_item_path %>
+
+
+
