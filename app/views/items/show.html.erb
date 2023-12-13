@@ -1,21 +1,26 @@
+<%# Shows a specific item %>
 <h1><%= @item.name %></h1>
 <% if @item.deleted_at %>
   <p>Deleted at = <%= @item.deleted_at %></p>
 <% end %>
 
-<ul>
-  <li><%= link_to "Edit", edit_item_path(@item) %></li>
+<%# Displays the available actions for a particular record %>
 
+<ul>
   <% if !@item.deleted_at %>
     <li><%= link_to "Soft Delete", soft_delete_item_path(@item) %></li>
   <% else %>
     <li><%= link_to "Restore", restore_item_path(@item) %></li>
   <% end %>
-
+  <%# Delete Item%>
+  
   <li><%= link_to "Delete", item_path(@item), data:{
     turbo_method: :delete,
     turbo_confirm: "Are you sure?"
-} %></li>
+    }%>
+  </li>
 </ul>
+
+<%# %>
 
 <%= link_to "Home", root_path %>

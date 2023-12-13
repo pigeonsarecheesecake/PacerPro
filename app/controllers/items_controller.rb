@@ -1,15 +1,21 @@
 class ItemsController < ApplicationController
-  #GET all the data
+  # Index using scopes
   def index
-    @items=Item.where(deleted_at: nil)
-    @recycleBin=Item.where.not(deleted_at: nil)
-    @allItems=Item.all
+    @items=Item.items_without_soft_delete
+    @recycleBin=Item.recycle_bin
+    @allItems=Item.all_items
   end
-  #GET a specific item
+
+  # Get a specific item
   def show
-    @item=Item.find(params[:id])
+    begin
+     @item=Item.unscoped.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to '/404'
+    end
   end
-  # Adding a new data
+
+  # Adding a new item
   def new
     @item=Item.new
   end
@@ -17,49 +23,34 @@ class ItemsController < ApplicationController
   def create
     @item=Item.new(item_params)
     if @item.save
-      redirect_to @item
+      redirect_to root_path
     else
       render :new, status: :unprocessable_entity
     end
   end
-  #Edit
-  def edit
-    @item = Item.find(params[:id])
-  end
 
-  def update
-    @item=Item.find(params[:id])
-    if @item.update(item_params)
-      redirect_to @item
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  #Delete data
+  # Delete data
   def destroy
-    @item=Item.find(params[:id])
+    @item=Item.unscoped.find(params[:id])
     @item.destroy
 
     redirect_to root_path, status: :see_other
   end
-  #Soft Delete
+
+  # Tasks Soft Delete and Restore
   def soft_delete
-    @item=Item.find(params[:id])
-    if @item.update(deleted_at: Time.now + Time.zone_offset('EST'))
-      redirect_to @item
-    else
-      render :edit
-    end
+    @item=Item.unscoped.find(params[:id])
+    @item.update(deleted_at: Time.current)
+
+    redirect_to root_path
   end
-  #Restore
+
+  # Restore
   def restore
-    @item=Item.find(params[:id])
-    if @item.update(deleted_at: nil)
-      redirect_to @item
-    else
-      render :edit
-    end
+    @item=Item.unscoped.find(params[:id])
+    @item.update(deleted_at: nil)
+
+    redirect_to root_path
   end
 
   private

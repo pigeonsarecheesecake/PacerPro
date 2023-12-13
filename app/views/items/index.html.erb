@@ -1,34 +1,46 @@
-<h1>Items</h1>
+<%# Items excluding soft deleted items%>
+
+<h1>All items</h1>
+<p>Excluding "Deleted Items"</p>
 <ul>
     <% @items.each do |item| %>
-    <li>
-        <%= link_to item.name, item %>
-    </li>
+        <li>
+            <%= link_to item.name, item %>
+        </li>
     <%end%>
 </ul>
 
-<h1>Recyle Bin</h1>
+<hr>
+
+<%# Display Items that were soft deleted, recycle bin%>
+<h1>Unscoped Results</h1>
+<p>(Not affected by the default scope, to demonstrate the soft delete does not remove a model instance form the database)</p>
+<h2>Recyle Bin</h2>
 <ul>
     <% @recycleBin.each do |item| %>
-    <li>
-        <%= link_to item.name, item %>
-        |Deleted at :<%= item.deleted_at %>
-    </li>
+        <li>
+            <%= link_to item.name, item %>
+            |Deleted at :<%= item.deleted_at %>
+        </li>
+        
     <%end%>
 </ul>
 
-<h1>All Items</h1>
+
+<%# Display every instance in the model. %>
+<h2>All Items</h2>
 <ul>
     <% @allItems.each do |item| %>
-    <li>
-        <%= link_to item.name, item %>
+        <li>
+            <%= link_to item.name, item %>
             <% if item.deleted_at %>
                 |Deleted at :<%= item.deleted_at %>
             <% end %>
-    </li>
+        </li>
     <%end%>
 </ul>
 
+<%# Add new item  %>
 <%= link_to "Add New Item", new_item_path %>
 
 
