@@ -9,12 +9,13 @@
         </li>
     <%end%>
 </ul>
-
+<%# Add new item  %>
+<%= link_to "Add New Item", new_item_path %>
 <hr>
 
 <%# Display Items that were soft deleted, recycle bin%>
 <h1>Unscoped Results</h1>
-<p>(Not affected by the default scope, to demonstrate the soft delete does not remove a model instance form the database)</p>
+<p>Not affected by the default scope, to demonstrate the soft delete does not remove a model instance from the database)</p>
 <h2>Recyle Bin</h2>
 <ul>
     <% @recycleBin.each do |item| %>
@@ -40,8 +41,6 @@
     <%end%>
 </ul>
 
-<%# Add new item  %>
-<%= link_to "Add New Item", new_item_path %>
 
 
 

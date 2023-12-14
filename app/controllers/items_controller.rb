@@ -8,11 +8,7 @@ class ItemsController < ApplicationController
 
   # Get a specific item
   def show
-    begin
      @item=Item.unscoped.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      redirect_to '/404'
-    end
   end
 
   # Adding a new item
@@ -39,8 +35,8 @@ class ItemsController < ApplicationController
 
   # Tasks Soft Delete and Restore
   def soft_delete
-    @item=Item.unscoped.find(params[:id])
-    @item.update(deleted_at: Time.current)
+    @item=Item.find(params[:id])
+    @item.soft_delete
 
     redirect_to root_path
   end
@@ -48,7 +44,7 @@ class ItemsController < ApplicationController
   # Restore
   def restore
     @item=Item.unscoped.find(params[:id])
-    @item.update(deleted_at: nil)
+    @item.restore
 
     redirect_to root_path
   end
