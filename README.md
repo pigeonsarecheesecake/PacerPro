@@ -1,4 +1,5 @@
 # README
+Introduction
 
 Hi, my name is William Ryuputra, and this is my submission for PacerPro's Coding Test #1. This program includes a model named Item that has record soft deletion and restoration features.
 
@@ -8,6 +9,14 @@ I've been wanting to try Rails, so thank you for this opportunity. It allowed me
 
 You may notice a strange git commit history (such as defining the methods directly under actions, then moving it to the model) in this repository, which reflects my inexperience with this framework. However, I've learned a lot, and I've been very curious about the MVC design pattern.
 
+
+------------------------------------------------------------------------------------------------------
+
+Project Summary
+
+PacerPro's Coding Test #1 allows users to add items to the database, temporarily and permanently delete items, and restore temporarily deleted items. The project also displays query results that are unscoped, meaning the default scope will not apply to these queries to demonstrate the soft deletion feature does not remove a model instance from the database. The project includes RSpec tests that check if the soft deletion and restoration features run properly. 
+
+------------------------------------------------------------------------------------------------------
 Please do make sure you have these installed to run the program.
 
 * Ruby version
@@ -25,6 +34,7 @@ Please do make sure you have these installed to run the program.
 * How to run the test suite
 - Run "bundle exec rspec"
 
+------------------------------------------------------------------------------------------------------
 * All items :
 - Every item defined by the default scope, items that were not soft deleted. Click item to soft delete or permanently delete.
 
