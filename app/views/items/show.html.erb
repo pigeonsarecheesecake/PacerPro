@@ -7,13 +7,14 @@
 <%# Displays the available actions for a particular record %>
 
 <ul>
+  <%# Soft delete and restore %>
   <% if !@item.deleted_at %>
     <li><%= link_to "Soft Delete", soft_delete_item_path(@item) %></li>
   <% else %>
     <li><%= link_to "Restore", restore_item_path(@item) %></li>
   <% end %>
+
   <%# Delete Item%>
-  
   <li><%= link_to "Delete", item_path(@item), data:{
     turbo_method: :delete,
     turbo_confirm: "Are you sure?"
